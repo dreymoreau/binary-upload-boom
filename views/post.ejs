@@ -13,6 +13,7 @@
           <button class="btn btn-primary fa fa-heart" type="submit"></button>
         </form>
         <h3 class="col-3">Likes: <%= post.likes %></h3>
+        <!-- post.user is in the database which checks to see if the post that we are looking at was the person that made the post, as well as all the user info, we will check if the user is logged in that just made the post, show the trash can -->
         <%if(post.user == user.id){ %>
         <form
           action="/post/deletePost/<%= post.id %>?_method=DELETE"
