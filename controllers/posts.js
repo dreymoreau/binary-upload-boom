@@ -1,5 +1,6 @@
 const cloudinary = require("../middleware/cloudinary");
 const Post = require("../models/Post");
+const Comment = require("../models/Comment")
 
 module.exports = {
   getProfile: async (req, res) => {
@@ -22,6 +23,8 @@ module.exports = {
   getPost: async (req, res) => {
     try {
       const post = await Post.findById(req.params.id);
+      // find all comments, sort, send to post.ejs to render
+      const comments = await Comment.find({post: req.params.id, comments: comments}).sort({ createdAt: "desc" }).lean();
       // the req.user info is being sent over when logged in, this connects with the post.ejs file
       res.render("post.ejs", { post: post, user: req.user });
     } catch (err) {
